@@ -6,6 +6,8 @@ import { useScreens } from 'react-native-screens'; // optimisation for screens
 // npm install react-navigation react-navigation-tabs react-naivgation-drawer react-navigation-stack react-native-screens
 // expo install react-native-gesture-handler react-native-reanimated
 // for header buttons, npm install react-navigation-header-buttons
+// for android specific material bottom tabs, npm install react-navigation-material-bottom-tabs react-native-paper
+
 
 import MealsNavigator from './navigation/MealsNavigator';
 
