@@ -4,6 +4,7 @@ import { Platform } from 'react-native'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';  // these navigator hold configurations for navigations
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
@@ -38,6 +39,15 @@ const FavNavigator = createStackNavigator({
     Favorites: FavouriteScreen,
     MealDetail: MealDetailScreen
 }, defaultStackNavOptions);
+
+const FiltersNavigator = createStackNavigator({
+    Filters: FilterScreen
+}, {
+    navigationOptions: {
+        drawerLabel: "Filters"
+    },
+    defaultNavigationOptions: defaultStackNavOptions
+})
 
 const tabScreenConfig = {
     // Better to use this longer format when using nested navigators
@@ -74,8 +84,9 @@ const tabScreenConfig = {
     }
 }
 
+
 const MealsFavTabNavigator = Platform.OS === "android" 
-    ? createMaterialBottomTabNavigator(tabScreenConfig, {
+? createMaterialBottomTabNavigator(tabScreenConfig, {
         activeTintColor: "white",
         shifting: true
     }) // works same as bottomTabNavigator
@@ -86,6 +97,23 @@ const MealsFavTabNavigator = Platform.OS === "android"
         }
     });
 
-export default createAppContainer(MealsFavTabNavigator);
+
+
+// However, the screen on which we need the hamburger is assigned manually using headerButtons
+const MainNavigator = createDrawerNavigator({
+    MealsFavs: {
+        screen: MealsFavTabNavigator,
+        navigationOptions: {
+            drawerLabel: "Meals!!!"
+        }
+    },
+    Filters: FiltersNavigator
+}, {
+    contentOptions: {
+        activeTintColor: Colors.accentColor
+    }
+});
+
+export default createAppContainer(MainNavigator);
 
 
